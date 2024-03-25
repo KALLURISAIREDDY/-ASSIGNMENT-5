@@ -15,7 +15,7 @@ public class Department {
     public static void main(String[] args) {
         try {
             
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/departments", "tharun", " ");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/departments", "sai kumar reddy", " ");
 
             
             String query = "INSERT INTO department (id, name) VALUES (?, ?)";
