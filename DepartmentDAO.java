@@ -3,37 +3,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class DepartmentDAO {
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/departments";
-    private static final String DB_USER = "sai kumar reddy";
-    private static final String DB_PASSWORD = "123456";
-
-    private static final String INSERT_DEPARTMENT_SQL = "INSERT INTO department (id, name) VALUES (?, ?)";
-
-    public void addDepartment(Department department) {
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
-             PreparedStatement pstmt = conn.prepareStatement(INSERT_DEPARTMENT_SQL)) {
-
-            pstmt.setInt(1, department.getId());
-            pstmt.setString(2, department.getName());
-
-            pstmt.executeUpdate();
-            System.out.println("Department added successfully!");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        Department department = new Department(1, "HR");
-
-        DepartmentDAO departmentDAO = new DepartmentDAO();
-
-        departmentDAO.addDepartment(department);
-    }
-}
-
-class Department {
+public class Department {
     private int id;
     private String name;
 
@@ -42,19 +12,42 @@ class Department {
         this.name = name;
     }
 
+    public static void main(String[] args) {
+        try {
+            
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/departments", "tharun", " ");
+
+            
+            String query = "INSERT INTO department (id, name) VALUES (?, ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+            
+            Department department1 = new Department(1, "HR");
+            Department department2 = new Department(2, "IT");
+
+            preparedStatement.setInt(1, department1.getId());
+            preparedStatement.setString(2, department1.getName());
+            preparedStatement.executeUpdate();
+
+            preparedStatement.setInt(1, department2.getId());
+            preparedStatement.setString(2, department2.getName());
+            preparedStatement.executeUpdate();
+
+            System.out.println("Department objects have been successfully stored in the database.");
+
+            
+            preparedStatement.close();
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 }
