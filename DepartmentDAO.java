@@ -5,8 +5,8 @@ import java.sql.SQLException;
 
 public class DepartmentDAO {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/departments";
-    private static final String DB_USER = "your_username";
-    private static final String DB_PASSWORD = "your_password";
+    private static final String DB_USER = "sai kumar reddy";
+    private static final String DB_PASSWORD = "123456";
 
     private static final String INSERT_DEPARTMENT_SQL = "INSERT INTO department (id, name) VALUES (?, ?)";
 
